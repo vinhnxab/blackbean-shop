@@ -709,7 +709,6 @@ function blackbean_shop_enqueue_assets() : void {
 add_action( 'wp_enqueue_scripts', 'blackbean_shop_enqueue_assets' );
 
 function blackbean_shop_activate() : void {
-	blackbean_shop_register_post_types();
 	blackbean_shop_register_rewrites();
 	if ( function_exists( 'blackbean_shop_license_install_tables' ) ) {
 		blackbean_shop_license_install_tables();
