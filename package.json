@@ -1,0 +1,16 @@
+{
+  "name": "blackbean-shop",
+  "version": "0.1.0",
+  "description": "Build assets for the Black Bean Shop WordPress plugin.",
+  "private": true,
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "watch": "tailwindcss -c ./tailwind.config.js -i ./src/shop-admin.css -o ./assets/css/shop-admin.css --watch"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.4",
+    "tailwindcss": "^3.4.17"
+  }
+}
