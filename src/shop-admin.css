@@ -1,0 +1,751 @@
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Shop product admin — scoped components (no preflight; beats wp-admin inside .postbox).
+ */
+.blackbean-shop-admin {
+	--bb-shop-brand: #7c3aed;
+	--bb-shop-brand-hover: #6d28d9;
+	font-size: 13px;
+	line-height: 1.5;
+	color: #27272a;
+}
+
+.blackbean-shop-admin,
+.blackbean-shop-admin * {
+	box-sizing: border-box;
+}
+
+@layer components {
+	.blackbean-shop-admin .bb-shop-card {
+		border-radius: 0.75rem;
+		border: 1px solid hsla(240, 6%, 90%, 0.8);
+		background: #fff;
+		padding: 1.25rem;
+		box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	}
+
+	.blackbean-shop-admin .bb-shop-card-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 0.75rem;
+		margin-bottom: 1rem;
+		padding-bottom: 1rem;
+		border-bottom: 1px solid #f4f4f5;
+	}
+
+	.blackbean-shop-admin .bb-shop-card-title {
+		margin: 0;
+		font-size: 1rem;
+		font-weight: 600;
+		color: #18181b;
+	}
+
+	.blackbean-shop-admin .bb-shop-card-sub {
+		margin: 0.25rem 0 0;
+		font-size: 0.75rem;
+		color: #71717a;
+	}
+
+	.blackbean-shop-admin .bb-shop-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
+	}
+
+	@media (min-width: 640px) {
+		.blackbean-shop-admin .bb-shop-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.blackbean-shop-admin .bb-shop-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.blackbean-shop-admin .bb-shop-stat {
+		border-radius: 0.5rem;
+		border: 1px solid #f4f4f5;
+		background: hsla(0, 0%, 98%, 0.9);
+		padding: 0.625rem 0.75rem;
+	}
+
+	.blackbean-shop-admin .bb-shop-label {
+		margin: 0;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #71717a;
+	}
+
+	.blackbean-shop-admin .bb-shop-value {
+		margin: 0.25rem 0 0;
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: #18181b;
+	}
+
+	.blackbean-shop-admin .bb-shop-hint {
+		margin: 0.125rem 0 0;
+		font-size: 0.75rem;
+		line-height: 1.5;
+		color: #71717a;
+	}
+
+	.blackbean-shop-admin .bb-shop-panel {
+		margin-top: 1rem;
+		border-radius: 0.5rem;
+		border: 1px solid #f4f4f5;
+		background: hsla(0, 0%, 98%, 0.9);
+		padding: 0.75rem;
+	}
+
+	.blackbean-shop-admin .bb-shop-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		border-top: 1px solid #f4f4f5;
+	}
+
+	.blackbean-shop-admin .bb-shop-toolbar-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		align-items: center;
+	}
+
+	.blackbean-shop-admin a.bb-shop-btn,
+	.blackbean-shop-admin button.bb-shop-btn {
+		display: inline-flex !important;
+		align-items: center;
+		justify-content: center;
+		border-radius: 0.5rem;
+		padding: 0.375rem 0.75rem;
+		font-size: 0.75rem;
+		font-weight: 600;
+		line-height: 1.25rem;
+		text-decoration: none !important;
+		box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+		cursor: pointer;
+	}
+
+	.blackbean-shop-admin a.bb-shop-btn-primary,
+	.blackbean-shop-admin button.bb-shop-btn-primary {
+		border: none !important;
+		background-color: var(--bb-shop-brand) !important;
+		color: #fff !important;
+	}
+
+	.blackbean-shop-admin a.bb-shop-btn-primary:hover,
+	.blackbean-shop-admin button.bb-shop-btn-primary:hover {
+		background-color: var(--bb-shop-brand-hover) !important;
+		color: #fff !important;
+	}
+
+	.blackbean-shop-admin a.bb-shop-btn-secondary,
+	.blackbean-shop-admin button.bb-shop-btn-secondary {
+		border: 1px solid #e4e4e7 !important;
+		background-color: #fff !important;
+		color: #3f3f46 !important;
+	}
+
+	.blackbean-shop-admin a.bb-shop-btn-secondary:hover,
+	.blackbean-shop-admin button.bb-shop-btn-secondary:hover {
+		border-color: #d4d4d8 !important;
+		background-color: #fafafa !important;
+		color: #18181b !important;
+	}
+
+	.blackbean-shop-admin .bb-shop-badge {
+		display: inline-flex;
+		align-items: center;
+		border-radius: 0.375rem;
+		padding: 0.125rem 0.5rem;
+		font-size: 0.75rem;
+		font-weight: 600;
+		line-height: 1.25;
+	}
+
+	.blackbean-shop-admin .bb-shop-badge--neutral {
+		background: #f4f4f5;
+		color: #3f3f46;
+	}
+
+	.blackbean-shop-admin .bb-shop-badge--in {
+		background: #ecfdf5;
+		color: #065f46;
+		box-shadow: inset 0 0 0 1px rgba(167, 243, 208, 0.8);
+	}
+
+	.blackbean-shop-admin .bb-shop-badge--out {
+		background: #fef2f2;
+		color: #991b1b;
+		box-shadow: inset 0 0 0 1px rgba(254, 202, 202, 0.8);
+	}
+
+	.blackbean-shop-admin .bb-shop-badge--warn {
+		background: #fffbeb;
+		color: #78350f;
+		box-shadow: inset 0 0 0 1px rgba(253, 230, 138, 0.8);
+	}
+
+	.blackbean-shop-admin .bb-shop-note-ok {
+		margin: 0.75rem 0 0;
+		font-size: 0.75rem;
+		color: #047857;
+	}
+
+	.blackbean-shop-admin .bb-shop-fields {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	@media (min-width: 768px) {
+		.blackbean-shop-admin .bb-shop-fields {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	.blackbean-shop-admin .bb-shop-field {
+		margin: 0;
+	}
+
+	.blackbean-shop-admin .bb-shop-form-label {
+		display: block;
+		margin: 0 0 0.375rem;
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: #3f3f46;
+	}
+
+	.blackbean-shop-admin .bb-shop-input,
+	.blackbean-shop-admin select.bb-shop-input,
+	.blackbean-shop-admin textarea.bb-shop-input {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		border-radius: 0.5rem;
+		border: 1px solid hsla(240, 6%, 90%, 0.9) !important;
+		background: #fff !important;
+		padding: 0.5rem 0.75rem;
+		font-size: 0.875rem;
+		line-height: 1.25rem;
+		color: #18181b !important;
+		box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	}
+
+	.blackbean-shop-admin .bb-shop-input--narrow {
+		max-width: 8rem;
+	}
+
+	.blackbean-shop-admin textarea.bb-shop-input {
+		min-height: 5rem;
+		resize: vertical;
+	}
+
+	.blackbean-shop-admin .bb-shop-check-row {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.625rem;
+		margin: 0;
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: #27272a;
+	}
+
+	.blackbean-shop-admin .bb-shop-check {
+		width: 1rem;
+		height: 1rem;
+		margin: 0;
+	}
+
+	.blackbean-shop-admin .bb-shop-section {
+		margin-top: 1.25rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid #e4e4e7;
+	}
+
+	.blackbean-shop-admin .bb-shop-section-title {
+		margin: 0 0 0.75rem;
+		font-size: 0.75rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #71717a;
+	}
+
+	.blackbean-shop-admin code {
+		border-radius: 0.25rem;
+		background: #f4f4f5;
+		padding: 0.125rem 0.375rem;
+		font-size: 0.75rem;
+	}
+
+	.blackbean-shop-admin .bb-shop-table-wrap {
+		padding: 0 !important;
+		overflow-x: auto;
+	}
+
+	.blackbean-shop-admin .bb-shop-table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	.blackbean-shop-admin .bb-shop-table thead th {
+		padding: 0.65rem 1rem;
+		font-size: 0.6875rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #71717a;
+		text-align: left;
+		background: #fafafa;
+		border-bottom: 1px solid #e4e4e7;
+	}
+
+	.blackbean-shop-admin .bb-shop-table tbody td,
+	.blackbean-shop-admin .bb-shop-table tfoot td,
+	.blackbean-shop-admin .bb-shop-table tfoot th {
+		padding: 0.85rem 1rem;
+		vertical-align: top;
+		border-bottom: 1px solid #f4f4f5;
+		color: #27272a;
+	}
+
+	.blackbean-shop-admin .bb-shop-table tbody tr:last-child td,
+	.blackbean-shop-admin .bb-shop-table tfoot tr:last-child td,
+	.blackbean-shop-admin .bb-shop-table tfoot tr:last-child th {
+		border-bottom: none;
+	}
+
+	.blackbean-shop-admin .bb-shop-table tbody tr:hover td {
+		background: #fafafa;
+	}
+
+	.blackbean-shop-admin .bb-shop-table tfoot th,
+	.blackbean-shop-admin .bb-shop-table tfoot td {
+		background: #fafafa;
+		font-weight: 600;
+	}
+
+	.blackbean-shop-admin .bb-shop-product-title {
+		font-weight: 600;
+		color: #18181b;
+		text-decoration: none;
+	}
+
+	.blackbean-shop-admin .bb-shop-product-title:hover {
+		color: #7c3aed;
+	}
+
+	.blackbean-shop-admin .bb-shop-order-edit-header {
+		margin: 0 0 1rem;
+	}
+
+	.blackbean-shop-admin .bb-shop-order-meta-row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.blackbean-shop-admin .bb-shop-order-license-sites {
+		margin: 0.35rem 0 0;
+		padding: 0;
+		list-style: none;
+		font-size: 0.75rem;
+	}
+
+	.blackbean-shop-admin .bb-shop-order-license-sites li {
+		margin: 0.2rem 0;
+	}
+
+	.blackbean-shop-admin .bb-shop-order-save .button-primary {
+		border: none !important;
+		border-radius: 0.5rem !important;
+		background: var(--bb-shop-brand) !important;
+		color: #fff !important;
+		font-size: 13px !important;
+		font-weight: 600 !important;
+		padding: 6px 16px !important;
+		text-shadow: none !important;
+		box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.08) !important;
+	}
+
+	.blackbean-shop-admin .bb-shop-order-save .button-primary:hover {
+		background: var(--bb-shop-brand-hover) !important;
+		color: #fff !important;
+	}
+}
+
+/* -------------------------------------------------------------------------
+   Product manager (admin.php?page=blackbean-shop-manager)
+   ------------------------------------------------------------------------- */
+.blackbean-shop-manager {
+	padding: 4px 0 28px;
+}
+
+.blackbean-shop-manager.wrap > h1:first-child {
+	display: none;
+}
+
+.blackbean-shop-manager .bb-shop-page-header,
+.blackbean-shop-admin .bb-shop-page-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 0.25rem;
+}
+
+.blackbean-shop-manager .bb-shop-page-title,
+.blackbean-shop-admin .bb-shop-page-title {
+	margin: 0;
+	font-size: 1.625rem;
+	font-weight: 700;
+	line-height: 1.25;
+	color: #18181b;
+	letter-spacing: -0.02em;
+}
+
+.blackbean-shop-manager .bb-shop-page-desc,
+.blackbean-shop-admin .bb-shop-page-desc {
+	margin: 0.35rem 0 0;
+	font-size: 0.875rem;
+	color: #71717a;
+}
+
+.blackbean-shop-manager .bb-shop-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	margin: 1.25rem 0 1rem;
+}
+
+.blackbean-shop-manager .bb-shop-tab {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.45rem 0.85rem;
+	border-radius: 0.5rem;
+	font-size: 0.8125rem;
+	font-weight: 500;
+	color: #52525b;
+	text-decoration: none;
+	background: transparent;
+	transition: background 0.15s, color 0.15s;
+}
+
+.blackbean-shop-manager .bb-shop-tab:hover {
+	color: #18181b;
+	background: rgba(255, 255, 255, 0.7);
+}
+
+.blackbean-shop-manager .bb-shop-tab.is-active {
+	background: #fff;
+	color: #7c3aed;
+	font-weight: 600;
+	box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.06);
+}
+
+.blackbean-shop-manager .bb-shop-tab-count {
+	display: inline-block;
+	min-width: 1.25rem;
+	padding: 0 0.35rem;
+	border-radius: 9999px;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	text-align: center;
+	background: #f4f4f5;
+	color: #71717a;
+}
+
+.blackbean-shop-manager .bb-shop-tab.is-active .bb-shop-tab-count {
+	background: #ede9fe;
+	color: #6d28d9;
+}
+
+.blackbean-shop-manager .bb-shop-table-wrap {
+	padding: 0 !important;
+	overflow-x: auto;
+}
+
+.blackbean-shop-manager .bb-shop-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.blackbean-shop-manager .bb-shop-table thead th {
+	padding: 0.65rem 1rem;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #71717a;
+	text-align: left;
+	background: #fafafa;
+	border-bottom: 1px solid #e4e4e7;
+}
+
+.blackbean-shop-manager .bb-shop-table tbody td {
+	padding: 0.85rem 1rem;
+	vertical-align: middle;
+	border-bottom: 1px solid #f4f4f5;
+	color: #27272a;
+}
+
+.blackbean-shop-manager .bb-shop-table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.blackbean-shop-manager .bb-shop-table tbody tr:hover td {
+	background: #fafafa;
+}
+
+.blackbean-shop-manager .bb-shop-col-thumb {
+	width: 56px;
+}
+
+.blackbean-shop-manager .bb-shop-col-order {
+	width: 120px;
+}
+
+.blackbean-shop-manager .bb-shop-thumb-placeholder {
+	display: block;
+	width: 40px;
+	height: 40px;
+	border-radius: 6px;
+	background: #f4f4f5;
+	border: 1px solid #e4e4e7;
+}
+
+.blackbean-shop-manager .bb-shop-product-title {
+	font-weight: 600;
+	color: #18181b;
+	text-decoration: none;
+}
+
+.blackbean-shop-manager .bb-shop-product-title:hover {
+	color: #7c3aed;
+}
+
+.blackbean-shop-manager .bb-shop-product-meta {
+	display: block;
+	margin-top: 0.15rem;
+	font-size: 0.6875rem;
+	color: #a1a1aa;
+}
+
+.blackbean-shop-manager .bb-shop-col-actions {
+	white-space: nowrap;
+}
+
+.blackbean-shop-manager .bb-shop-col-actions .bb-shop-btn-secondary {
+	margin-right: 0.25rem;
+	padding: 0.35rem 0.65rem !important;
+	font-size: 0.75rem !important;
+}
+
+.blackbean-shop-manager .bb-shop-empty-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	padding: 2.5rem 1rem;
+}
+
+.blackbean-shop-manager .bb-shop-empty {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	color: #71717a;
+}
+
+.blackbean-shop-manager .bb-shop-footer-link {
+	margin: 1rem 0 0;
+	font-size: 0.75rem;
+}
+
+.blackbean-shop-manager .bb-shop-footer-link a {
+	color: #a1a1aa;
+	text-decoration: none;
+}
+
+.blackbean-shop-manager .bb-shop-footer-link a:hover {
+	color: #7c3aed;
+}
+
+.blackbean-shop-manager .bb-shop-sales-muted {
+	display: block;
+	font-size: 0.6875rem;
+	color: #a1a1aa;
+	margin-top: 0.1rem;
+}
+
+/* Single product edit */
+body.blackbean-shop-product-screen.post-php #poststuff #post-body.columns-2 {
+	margin-top: 8px;
+}
+
+body.blackbean-shop-product-screen.post-php #poststuff .postbox {
+	border: 1px solid #e4e4e7 !important;
+	border-radius: 0.75rem !important;
+	box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05) !important;
+	overflow: hidden;
+}
+
+body.blackbean-shop-product-screen.post-php #poststuff .postbox-header {
+	border-bottom: 1px solid #f4f4f5 !important;
+}
+
+body.blackbean-shop-product-screen.post-php #poststuff .postbox-header h2 {
+	font-size: 14px !important;
+	font-weight: 600 !important;
+	color: #18181b !important;
+}
+
+/* Single order edit */
+body.blackbean-shop-order-screen.post-php #post-body-content > .notice {
+	margin: 8px 12px 0;
+}
+
+body.blackbean-shop-order-screen.post-php #titlediv {
+	margin-bottom: 0;
+}
+
+body.blackbean-shop-order-screen.post-php #titlediv #title {
+	border-radius: 0.5rem;
+	border-color: #e4e4e7;
+	box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+body.blackbean-shop-order-screen.post-php #poststuff .postbox {
+	border: 1px solid #e4e4e7 !important;
+	border-radius: 0.75rem !important;
+	box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05) !important;
+	overflow: hidden;
+}
+
+body.blackbean-shop-order-screen.post-php #poststuff .postbox-header {
+	border-bottom: 1px solid #f4f4f5 !important;
+}
+
+body.blackbean-shop-order-screen.post-php #poststuff .postbox-header h2 {
+	font-size: 14px !important;
+	font-weight: 600 !important;
+	color: #18181b !important;
+}
+
+body.blackbean-shop-order-screen.post-php #submitdiv {
+	border: 1px solid #e4e4e7 !important;
+	border-radius: 0.75rem !important;
+	box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05) !important;
+	overflow: hidden;
+}
+
+body.blackbean-shop-order-screen.post-php #submitdiv .postbox-header {
+	border-bottom: 1px solid #f4f4f5 !important;
+}
+
+body.blackbean-shop-order-screen.post-php #submitdiv .postbox-header h2 {
+	font-size: 14px !important;
+	font-weight: 600 !important;
+	color: #18181b !important;
+}
+
+body.blackbean-shop-order-screen.post-php #submitdiv .inside {
+	margin: 0;
+	padding: 12px;
+}
+
+body.blackbean-shop-order-screen.post-php #major-publishing-actions {
+	border-top: 1px solid #f4f4f5;
+	background: #fafafa;
+}
+
+body.blackbean-shop-order-screen.post-php #publish {
+	border: none !important;
+	border-radius: 0.5rem !important;
+	background: #7c3aed !important;
+	color: #fff !important;
+	font-weight: 600 !important;
+	text-shadow: none !important;
+	box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.08) !important;
+}
+
+body.blackbean-shop-order-screen.post-php #publish:hover {
+	background: #6d28d9 !important;
+}
+
+body.blackbean-shop-order-screen.post-php .bb-shop-order-save {
+	margin-top: 1.25rem;
+	padding-top: 1rem;
+	border-top: 1px solid #f4f4f5;
+}
+
+body.blackbean-shop-order-screen.post-php .bb-shop-order-save .description {
+	margin: 0.5rem 0 0;
+	font-size: 12px;
+	color: #71717a;
+}
+
+/* License manager */
+.bb-shop-license-search {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0 0 1rem;
+}
+
+.bb-shop-table-meta {
+	margin: 0 0 0.75rem;
+	font-size: 12px;
+	color: #71717a;
+}
+
+.bb-license-key-cell {
+	font-size: 12px;
+	word-break: break-all;
+}
+
+.bb-license-sites-list {
+	margin: 0.35rem 0 0;
+	padding: 0;
+	list-style: none;
+	font-size: 12px;
+}
+
+.bb-license-sites-list li {
+	margin: 0.2rem 0;
+}
+
+.bb-license-inline-form {
+	display: inline;
+	margin: 0;
+}
+
+.bb-shop-pagination {
+	margin-top: 1rem;
+}
+
+.bb-shop-pagination .page-numbers {
+	display: inline-block;
+	margin-right: 0.25rem;
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.375rem;
+	text-decoration: none;
+}
+
+.bb-shop-pagination .page-numbers.current {
+	background: #f4f4f5;
+	font-weight: 600;
+}
