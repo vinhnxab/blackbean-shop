@@ -6,6 +6,7 @@
   "license": "GPL-2.0-or-later",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "release": "node ../../../scripts/release-one-plugin.mjs blackbean-shop",
     "watch": "tailwindcss -c ./tailwind.config.js -i ./src/shop-admin.css -o ./assets/css/shop-admin.css --watch"
   },
   "devDependencies": {

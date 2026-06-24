@@ -32,6 +32,7 @@ function blackbean_shop_maybe_migrate_cpt_to_tables(): void {
 /**
  * Migrate bb_product posts.
  */
+if ( ! function_exists( 'blackbean_migrate_products_from_cpt' ) ) {
 function blackbean_migrate_products_from_cpt(): void {
 	global $wpdb;
 
@@ -87,10 +88,12 @@ function blackbean_migrate_products_from_cpt(): void {
 		);
 	}
 }
+}
 
 /**
  * Migrate bb_order posts.
  */
+if ( ! function_exists( 'blackbean_migrate_orders_from_cpt' ) ) {
 function blackbean_migrate_orders_from_cpt(): void {
 	global $wpdb;
 
@@ -150,6 +153,7 @@ function blackbean_migrate_orders_from_cpt(): void {
 			array( '%d', '%s', '%s', '%s', '%f', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%d', '%s', '%s', '%s', '%s' )
 		);
 	}
+}
 }
 
 add_action( 'init', 'blackbean_shop_maybe_migrate_cpt_to_tables', 25 );

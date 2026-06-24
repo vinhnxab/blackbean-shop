@@ -24,10 +24,18 @@ final class BB_Shop_Plugin {
 	}
 
 	public function boot(): void {
-		add_action( 'plugins_loaded', array( $this, 'load' ), 100 );
+		add_action( 'after_setup_theme', array( $this, 'load' ), 1 );
 	}
 
 	public function load(): void {
+		require_once BB_SHOP_PLUGIN_DIR . 'includes/compat.php';
+
+		if ( bb_shop_legacy_theme_conflict() ) {
+			add_action( 'admin_notices', 'bb_shop_legacy_theme_conflict_notice' );
+
+			return;
+		}
+
 		if ( ! $this->tables_available() ) {
 			add_action( 'admin_notices', array( $this, 'missing_tables_notice' ) );
 
@@ -43,8 +51,22 @@ final class BB_Shop_Plugin {
 	}
 
 	public function activate(): void {
-		if ( ! $this->tables_available() ) {
+		require_once BB_SHOP_PLUGIN_DIR . 'includes/compat.php';
+
+		if ( bb_shop_legacy_theme_conflict() ) {
 			return;
+		}
+
+		if ( ! $this->tables_available() ) {
+			deactivate_plugins( plugin_basename( BB_SHOP_PLUGIN_FILE ) );
+			wp_die(
+				esc_html__(
+					'Black Bean Shop requires Black Bean Tables to be installed and active first.',
+					'blackbean-shop'
+				),
+				esc_html__( 'Plugin activation failed', 'blackbean-shop' ),
+				array( 'back_link' => true )
+			);
 		}
 
 		$this->require_includes();
@@ -60,24 +82,31 @@ final class BB_Shop_Plugin {
 		if ( $loaded ) {
 			return;
 		}
+
+		if ( bb_shop_legacy_theme_conflict() ) {
+			return;
+		}
+
 		$loaded = true;
+		define( 'BB_SHOP_LOADED', true );
 
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/schema.php';
+		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop.php';
+		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-digital.php';
+		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-license.php';
+		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-paypal.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/data/products.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/data/orders.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/migrate-cpt.php';
-		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-settings.php';
-		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-digital.php';
-		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-license.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-license-rest.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-license-admin.php';
-		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-paypal.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-product-admin.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-admin.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-rest.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/storefront.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/rest-routes.php';
+		bb_shop_register_rest_fallbacks();
 	}
 
 	private function tables_available(): bool {
@@ -85,7 +114,7 @@ final class BB_Shop_Plugin {
 			return false;
 		}
 
-		return class_exists( 'BB_CT_Table_Registry' );
+		return class_exists( 'BB_CT_Plugin', false );
 	}
 
 	public function missing_tables_notice(): void {
