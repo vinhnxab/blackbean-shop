@@ -1,0 +1,110 @@
+# Deploy Black Bean Shop plugin to cPanel after push to main (rsync).
+#
+# Secrets (Settings → Actions):
+#   CPANEL_SSH_HOST, CPANEL_SSH_USER, CPANEL_SSH_KEY, CPANEL_PLUGIN_PATH
+#   CPANEL_PLUGIN_PATH → e.g. /home/user/public_html/wp-content/plugins/blackbean-shop
+# Optional: CPANEL_SSH_PORT (default 22)
+
+name: Deploy plugin to cPanel
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-cpanel-blackbean-shop
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Build plugin assets
+        run: |
+          set -euo pipefail
+          npm ci
+          npm run build
+          test -s assets/css/shop-admin.css
+          test -s assets/css/shop-front.css
+          test -s assets/js/shop.js
+          test -s includes/class-frontend-assets.php
+
+      - name: Write deploy marker
+        run: |
+          echo "sha=${{ github.sha }}" > .deploy-info
+          echo "ref=${{ github.ref_name }}" >> .deploy-info
+          echo "time=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> .deploy-info
+
+      - name: Rsync plugin to server
+        env:
+          SSH_HOST: ${{ secrets.CPANEL_SSH_HOST }}
+          SSH_USER: ${{ secrets.CPANEL_SSH_USER }}
+          SSH_KEY: ${{ secrets.CPANEL_SSH_KEY }}
+          PLUGIN_PATH: ${{ secrets.CPANEL_PLUGIN_PATH }}
+          SSH_PORT: ${{ secrets.CPANEL_SSH_PORT }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SSH_HOST}" ] || [ -z "${SSH_USER}" ] || [ -z "${SSH_KEY}" ] || [ -z "${PLUGIN_PATH}" ]; then
+            echo "::error::Missing secrets: CPANEL_SSH_HOST, CPANEL_SSH_USER, CPANEL_SSH_KEY, CPANEL_PLUGIN_PATH"
+            exit 1
+          fi
+          PORT="${SSH_PORT:-22}"
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" | tr -d '\r' > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+          SSH_OPTS="-i ~/.ssh/deploy_key -p ${PORT} -o StrictHostKeyChecking=accept-new -o BatchMode=yes"
+          ssh $SSH_OPTS "${SSH_USER}@${SSH_HOST}" "test -d '${PLUGIN_PATH}' || mkdir -p '${PLUGIN_PATH}'"
+          rsync -avz --delete-after \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude 'node_modules/' \
+            --exclude 'src/' \
+            --exclude 'scripts/' \
+            --exclude 'release/' \
+            --exclude 'package.json' \
+            --exclude 'package-lock.json' \
+            --exclude 'tailwind.config.js' \
+            --exclude 'tailwind.admin.config.js' \
+            -e "ssh ${SSH_OPTS}" \
+            ./ "${SSH_USER}@${SSH_HOST}:${PLUGIN_PATH}/"
+          echo "Deployed: $(git rev-parse --short HEAD) $(git log -1 --pretty=%s)"
+
+      - name: Fix file permissions
+        continue-on-error: true
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.CPANEL_SSH_HOST }}
+          username: ${{ secrets.CPANEL_SSH_USER }}
+          key: ${{ secrets.CPANEL_SSH_KEY }}
+          port: ${{ secrets.CPANEL_SSH_PORT }}
+          script_stop: false
+          script: |
+            PLUGIN_PATH="${{ secrets.CPANEL_PLUGIN_PATH }}"
+            chmod 755 "$PLUGIN_PATH"
+            find "$PLUGIN_PATH" -type d -exec chmod 755 {} + 2>/dev/null || true
+            find "$PLUGIN_PATH" -type f -exec chmod 644 {} + 2>/dev/null || true
+
+      - name: Verify deploy marker
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.CPANEL_SSH_HOST }}
+          username: ${{ secrets.CPANEL_SSH_USER }}
+          key: ${{ secrets.CPANEL_SSH_KEY }}
+          port: ${{ secrets.CPANEL_SSH_PORT }}
+          script: |
+            test -f "${{ secrets.CPANEL_PLUGIN_PATH }}/.deploy-info" && grep -q "${{ github.sha }}" "${{ secrets.CPANEL_PLUGIN_PATH }}/.deploy-info" && echo "OK: server has commit ${{ github.sha }}"

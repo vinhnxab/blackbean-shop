@@ -44,6 +44,10 @@ final class BB_Shop_Plugin {
 
 		$this->require_includes();
 
+		if ( class_exists( 'BB_Shop_Health_Check' ) && array() !== BB_Shop_Health_Check::missing_files() ) {
+			return;
+		}
+
 		blackbean_schema_install();
 
 		BB_Shop_Frontend_Routing::register();
