@@ -48,6 +48,7 @@ final class BB_Shop_Plugin {
 
 		BB_Shop_Frontend_Routing::register();
 		BB_Shop_Admin_Assets::register();
+		BB_Shop_Frontend_Assets::register();
 	}
 
 	public function activate(): void {
@@ -98,6 +99,8 @@ final class BB_Shop_Plugin {
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/data/products.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/data/orders.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/migrate-cpt.php';
+		require_once BB_SHOP_PLUGIN_DIR . 'includes/frontend-ui.php';
+		require_once BB_SHOP_PLUGIN_DIR . 'includes/admin-ui.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-settings.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-license-rest.php';
 		require_once BB_SHOP_PLUGIN_DIR . 'includes/shop-license-admin.php';

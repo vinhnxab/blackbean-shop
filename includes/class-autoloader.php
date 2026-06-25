@@ -19,6 +19,7 @@ final class BB_Shop_Autoloader {
 		'BB_Shop_Frontend_Routing'  => 'includes/class-frontend-routing.php',
 		'BB_Shop_Template_Loader'   => 'includes/class-template-loader.php',
 		'BB_Shop_Admin_Assets'      => 'includes/class-admin-assets.php',
+		'BB_Shop_Frontend_Assets'   => 'includes/class-frontend-assets.php',
 	);
 
 	public static function register(): void {

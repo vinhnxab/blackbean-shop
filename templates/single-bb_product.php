@@ -20,7 +20,7 @@ if ( ! $product ) {
 $row = blackbean_product_get_row( (int) $product['id'] );
 $content_html = $row ? apply_filters( 'the_content', (string) $row['content'] ) : '';
 ?>
-<div class="<?php echo esc_attr( blackbean_layout_container_classes( 'py-10' ) ); ?>">
+<div class="<?php echo esc_attr( blackbean_shop_layout_classes( 'py-10' ) ); ?>">
 	<article class="bb-reveal grid gap-10 lg:grid-cols-2">
 		<div>
 			<?php if ( $product['image'] ) : ?>
@@ -44,10 +44,10 @@ $content_html = $row ? apply_filters( 'the_content', (string) $row['content'] ) 
 			<?php if ( $product['in_stock'] ) : ?>
 				<form class="blackbean-shop-add mt-8 flex flex-wrap items-end gap-3" data-product-id="<?php echo esc_attr( (string) $product['id'] ); ?>">
 					<div>
-						<label class="<?php echo esc_attr( blackbean_label_class() ); ?>" for="bb_qty"><?php esc_html_e( 'Quantity', 'blackbean' ); ?></label>
-						<input class="<?php echo esc_attr( blackbean_input_class() ); ?> w-24" type="number" id="bb_qty" name="qty" value="1" min="1" max="<?php echo $product['stock'] >= 0 ? esc_attr( (string) $product['stock'] ) : '99'; ?>" />
+						<label class="<?php echo esc_attr( blackbean_shop_label_class() ); ?>" for="bb_qty"><?php esc_html_e( 'Quantity', 'blackbean' ); ?></label>
+						<input class="<?php echo esc_attr( blackbean_shop_input_class() ); ?> w-24" type="number" id="bb_qty" name="qty" value="1" min="1" max="<?php echo $product['stock'] >= 0 ? esc_attr( (string) $product['stock'] ) : '99'; ?>" />
 					</div>
-					<button type="submit" class="<?php echo esc_attr( blackbean_button_class( 'primary' ) ); ?>"><?php esc_html_e( 'Add to cart', 'blackbean' ); ?></button>
+					<button type="submit" class="<?php echo esc_attr( blackbean_shop_button_class( 'primary' ) ); ?>"><?php esc_html_e( 'Add to cart', 'blackbean' ); ?></button>
 				</form>
 				<div class="blackbean-shop-add-notice mt-3 flex flex-wrap items-center gap-3" hidden role="status" aria-live="polite"></div>
 			<?php endif; ?>

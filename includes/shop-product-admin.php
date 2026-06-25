@@ -126,9 +126,9 @@ function blackbean_shop_render_product_edit_page() : void {
 	$featured_image_id = $is_new ? 0 : (int) $row['featured_image_id'];
 	?>
 	<div class="<?php echo esc_attr( $ui['manager_wrap'] ); ?>">
-		<header class="bb-shop-page-header">
+		<header class="bb-admin-page-header">
 			<div>
-				<h1 class="bb-shop-page-title"><?php echo $is_new ? esc_html__( 'Add product', 'blackbean' ) : esc_html__( 'Edit product', 'blackbean' ); ?></h1>
+				<h1 class="bb-admin-page-title"><?php echo $is_new ? esc_html__( 'Add product', 'blackbean' ) : esc_html__( 'Edit product', 'blackbean' ); ?></h1>
 			</div>
 			<div class="<?php echo esc_attr( $ui['toolbar'] ); ?>">
 				<a class="<?php echo esc_attr( $ui['btn_sec'] ); ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=blackbean-shop-manager' ) ); ?>"><?php esc_html_e( 'Back to products', 'blackbean' ); ?></a>

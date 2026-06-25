@@ -11,12 +11,12 @@ $products = isset( $GLOBALS['blackbean_products_archive'] ) && is_array( $GLOBAL
 	? $GLOBALS['blackbean_products_archive']
 	: blackbean_products_query( array( 'status' => 'publish', 'limit' => 50 ) );
 ?>
-<div class="<?php echo esc_attr( blackbean_layout_container_classes( 'py-10' ) ); ?>">
+<div class="<?php echo esc_attr( blackbean_shop_layout_classes( 'py-10' ) ); ?>">
 	<header class="bb-reveal mb-10">
 		<h1 class="font-display text-3xl font-bold text-stone-900 dark:text-stone-100"><?php esc_html_e( 'Shop', 'blackbean' ); ?></h1>
 		<p class="mt-2 text-stone-600 dark:text-stone-400"><?php esc_html_e( 'Browse our latest products.', 'blackbean' ); ?></p>
 		<p class="mt-4">
-			<a class="<?php echo esc_attr( blackbean_button_class( 'secondary' ) ); ?>" href="<?php echo esc_url( blackbean_shop_cart_url() ); ?>"><?php esc_html_e( 'View cart', 'blackbean' ); ?></a>
+			<a class="<?php echo esc_attr( blackbean_shop_button_class( 'secondary' ) ); ?>" href="<?php echo esc_url( blackbean_shop_cart_url() ); ?>"><?php esc_html_e( 'View cart', 'blackbean' ); ?></a>
 		</p>
 	</header>
 
@@ -29,7 +29,7 @@ $products = isset( $GLOBALS['blackbean_products_archive'] ) && is_array( $GLOBAL
 					continue;
 				}
 				?>
-				<article class="bb-card bb-reveal flex flex-col overflow-hidden p-0">
+				<article class="bb-shop-card bb-reveal flex flex-col overflow-hidden p-0">
 					<?php if ( $product['image'] ) : ?>
 						<a href="<?php echo esc_url( $product['url'] ); ?>" class="block aspect-[4/3] overflow-hidden bg-stone-100 dark:bg-stone-800">
 							<img src="<?php echo esc_url( $product['image'] ); ?>" alt="" class="h-full w-full object-cover transition hover:scale-105" loading="lazy" />
@@ -43,7 +43,7 @@ $products = isset( $GLOBALS['blackbean_products_archive'] ) && is_array( $GLOBAL
 						<?php if ( $product['excerpt'] ) : ?>
 							<p class="mt-2 flex-1 text-sm text-stone-600 dark:text-stone-400"><?php echo esc_html( wp_html_excerpt( $product['excerpt'], 100, '…' ) ); ?></p>
 						<?php endif; ?>
-						<a class="<?php echo esc_attr( blackbean_button_class( 'primary' ) ); ?> mt-4 w-full text-center" href="<?php echo esc_url( $product['url'] ); ?>"><?php esc_html_e( 'View product', 'blackbean' ); ?></a>
+						<a class="<?php echo esc_attr( blackbean_shop_button_class( 'primary' ) ); ?> mt-4 w-full text-center" href="<?php echo esc_url( $product['url'] ); ?>"><?php esc_html_e( 'View product', 'blackbean' ); ?></a>
 					</div>
 				</article>
 			<?php endforeach; ?>

@@ -631,7 +631,7 @@ function blackbean_shop_template_redirect() : void {
 function blackbean_shop_render_page( string $view ) : void {
 	status_header( 200 );
 	get_header();
-	echo '<div class="' . esc_attr( blackbean_layout_container_classes( 'py-10' ) ) . '">';
+	echo '<div class="' . esc_attr( blackbean_shop_layout_classes( 'py-10' ) ) . '">';
 	BB_Shop_Template_Loader::get_part( 'shop/' . $view );
 	echo '</div>';
 	get_footer();
@@ -684,9 +684,9 @@ function blackbean_shop_script_config() : array {
 			'cartItem'    => __( 'Cart, %d item', 'blackbean' ),
 		),
 		'shopUrl'             => blackbean_shop_products_url(),
-		'inputClass'          => blackbean_input_class(),
-		'viewCartButtonClass' => blackbean_button_class( 'secondary' ),
-		'primaryButtonClass'  => blackbean_button_class( 'primary' ),
+		'inputClass'          => blackbean_shop_input_class(),
+		'viewCartButtonClass' => blackbean_shop_button_class( 'secondary' ),
+		'primaryButtonClass'  => blackbean_shop_button_class( 'primary' ),
 	);
 }
 

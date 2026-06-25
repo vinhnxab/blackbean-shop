@@ -30,7 +30,7 @@ $fulfillment   = $paid && function_exists( 'blackbean_shop_get_fulfillment_displ
 		<?php if ( $paypal_cancel && ! $paid ) : ?>
 			<p class="text-amber-800 dark:text-amber-200"><?php esc_html_e( 'Payment was cancelled. You can try again below.', 'blackbean' ); ?></p>
 			<?php if ( blackbean_shop_paypal_enabled() ) : ?>
-				<a class="<?php echo esc_attr( blackbean_button_class( 'primary' ) ); ?> inline-flex" href="<?php echo esc_url( add_query_arg( array( 'order_id' => (string) $order_id, 'pay_order' => '1' ), blackbean_shop_checkout_url() ) ); ?>">
+				<a class="<?php echo esc_attr( blackbean_shop_button_class( 'primary' ) ); ?> inline-flex" href="<?php echo esc_url( add_query_arg( array( 'order_id' => (string) $order_id, 'pay_order' => '1' ), blackbean_shop_checkout_url() ) ); ?>">
 					<?php esc_html_e( 'Pay with PayPal', 'blackbean' ); ?>
 				</a>
 			<?php endif; ?>
@@ -53,7 +53,7 @@ $fulfillment   = $paid && function_exists( 'blackbean_shop_get_fulfillment_displ
 							<?php endif; ?>
 							<?php if ( ! empty( $row['download_url'] ) ) : ?>
 								<p class="mt-2">
-									<a class="<?php echo esc_attr( blackbean_button_class( 'secondary' ) ); ?> inline-flex text-sm" href="<?php echo esc_url( $row['download_url'] ); ?>">
+									<a class="<?php echo esc_attr( blackbean_shop_button_class( 'secondary' ) ); ?> inline-flex text-sm" href="<?php echo esc_url( $row['download_url'] ); ?>">
 										<?php esc_html_e( 'Download', 'blackbean' ); ?>
 									</a>
 								</p>
@@ -66,17 +66,17 @@ $fulfillment   = $paid && function_exists( 'blackbean_shop_get_fulfillment_displ
 			<p class="text-stone-600 dark:text-stone-400"><?php esc_html_e( 'Your order is awaiting payment.', 'blackbean' ); ?></p>
 			<p class="text-sm"><?php echo esc_html( sprintf( __( 'Order #%d', 'blackbean' ), $order_id ) ); ?></p>
 			<?php if ( blackbean_shop_paypal_enabled() ) : ?>
-				<a class="<?php echo esc_attr( blackbean_button_class( 'primary' ) ); ?> mt-4 inline-flex" href="<?php echo esc_url( add_query_arg( array( 'order_id' => (string) $order_id, 'pay_order' => '1' ), blackbean_shop_checkout_url() ) ); ?>">
+				<a class="<?php echo esc_attr( blackbean_shop_button_class( 'primary' ) ); ?> mt-4 inline-flex" href="<?php echo esc_url( add_query_arg( array( 'order_id' => (string) $order_id, 'pay_order' => '1' ), blackbean_shop_checkout_url() ) ); ?>">
 					<?php esc_html_e( 'Pay with PayPal', 'blackbean' ); ?>
 				</a>
 			<?php endif; ?>
 		<?php endif; ?>
 
-		<a class="<?php echo esc_attr( blackbean_button_class( 'secondary' ) ); ?> mt-4 inline-flex" href="<?php echo esc_url( blackbean_shop_products_url() ); ?>"><?php esc_html_e( 'Back to shop', 'blackbean' ); ?></a>
+		<a class="<?php echo esc_attr( blackbean_shop_button_class( 'secondary' ) ); ?> mt-4 inline-flex" href="<?php echo esc_url( blackbean_shop_products_url() ); ?>"><?php esc_html_e( 'Back to shop', 'blackbean' ); ?></a>
 	</div>
 <?php elseif ( empty( $cart['items'] ) ) : ?>
 	<p class="text-stone-600"><?php esc_html_e( 'Your cart is empty.', 'blackbean' ); ?></p>
-	<a class="<?php echo esc_attr( blackbean_button_class( 'primary' ) ); ?> mt-4 inline-flex" href="<?php echo esc_url( blackbean_shop_products_url() ); ?>"><?php esc_html_e( 'Go to shop', 'blackbean' ); ?></a>
+	<a class="<?php echo esc_attr( blackbean_shop_button_class( 'primary' ) ); ?> mt-4 inline-flex" href="<?php echo esc_url( blackbean_shop_products_url() ); ?>"><?php esc_html_e( 'Go to shop', 'blackbean' ); ?></a>
 <?php else : ?>
 	<?php if ( $error ) : ?>
 		<div class="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800 dark:border-red-900 dark:bg-red-950/40 dark:text-red-200"><?php echo esc_html( $error ); ?></div>
@@ -104,9 +104,9 @@ $fulfillment   = $paid && function_exists( 'blackbean_shop_get_fulfillment_displ
 			<?php endif; ?>
 
 			<div>
-				<label class="<?php echo esc_attr( blackbean_label_class() ); ?>" for="customer_name"><?php esc_html_e( 'Name', 'blackbean' ); ?></label>
+				<label class="<?php echo esc_attr( blackbean_shop_label_class() ); ?>" for="customer_name"><?php esc_html_e( 'Name', 'blackbean' ); ?></label>
 				<input
-					class="<?php echo esc_attr( blackbean_input_class() ); ?>"
+					class="<?php echo esc_attr( blackbean_shop_input_class() ); ?>"
 					type="text"
 					name="customer_name"
 					id="customer_name"
@@ -116,10 +116,10 @@ $fulfillment   = $paid && function_exists( 'blackbean_shop_get_fulfillment_displ
 				/>
 			</div>
 			<div>
-				<label class="<?php echo esc_attr( blackbean_label_class() ); ?>" for="customer_email"><?php esc_html_e( 'Email', 'blackbean' ); ?></label>
+				<label class="<?php echo esc_attr( blackbean_shop_label_class() ); ?>" for="customer_email"><?php esc_html_e( 'Email', 'blackbean' ); ?></label>
 				<?php if ( $logged_in ) : ?>
 					<input
-						class="<?php echo esc_attr( blackbean_input_class() ); ?> bg-stone-100/80 dark:bg-stone-800/50"
+						class="<?php echo esc_attr( blackbean_shop_input_class() ); ?> bg-stone-100/80 dark:bg-stone-800/50"
 						type="email"
 						id="customer_email"
 						value="<?php echo esc_attr( $customer['email'] ); ?>"
@@ -130,7 +130,7 @@ $fulfillment   = $paid && function_exists( 'blackbean_shop_get_fulfillment_displ
 					<p class="mt-1 text-xs text-stone-500 dark:text-stone-400"><?php esc_html_e( 'License and download links are sent to this email.', 'blackbean' ); ?></p>
 				<?php else : ?>
 					<input
-						class="<?php echo esc_attr( blackbean_input_class() ); ?>"
+						class="<?php echo esc_attr( blackbean_shop_input_class() ); ?>"
 						type="email"
 						name="customer_email"
 						id="customer_email"
@@ -141,9 +141,9 @@ $fulfillment   = $paid && function_exists( 'blackbean_shop_get_fulfillment_displ
 				<?php endif; ?>
 			</div>
 			<div>
-				<label class="<?php echo esc_attr( blackbean_label_class() ); ?>" for="customer_phone"><?php esc_html_e( 'Phone', 'blackbean' ); ?></label>
+				<label class="<?php echo esc_attr( blackbean_shop_label_class() ); ?>" for="customer_phone"><?php esc_html_e( 'Phone', 'blackbean' ); ?></label>
 				<input
-					class="<?php echo esc_attr( blackbean_input_class() ); ?>"
+					class="<?php echo esc_attr( blackbean_shop_input_class() ); ?>"
 					type="tel"
 					name="customer_phone"
 					id="customer_phone"
@@ -152,7 +152,7 @@ $fulfillment   = $paid && function_exists( 'blackbean_shop_get_fulfillment_displ
 				/>
 			</div>
 			<div>
-				<label class="<?php echo esc_attr( blackbean_label_class() ); ?>" for="customer_address"><?php esc_html_e( 'Address', 'blackbean' ); ?> <span class="font-normal text-stone-500">(<?php esc_html_e( 'optional', 'blackbean' ); ?>)</span></label>
+				<label class="<?php echo esc_attr( blackbean_shop_label_class() ); ?>" for="customer_address"><?php esc_html_e( 'Address', 'blackbean' ); ?> <span class="font-normal text-stone-500">(<?php esc_html_e( 'optional', 'blackbean' ); ?>)</span></label>
 				<textarea
 					class="<?php echo esc_attr( blackbean_textarea_class() ); ?>"
 					name="customer_address"
@@ -162,10 +162,10 @@ $fulfillment   = $paid && function_exists( 'blackbean_shop_get_fulfillment_displ
 				><?php echo esc_textarea( $customer['address'] ); ?></textarea>
 			</div>
 			<div>
-				<label class="<?php echo esc_attr( blackbean_label_class() ); ?>" for="customer_notes"><?php esc_html_e( 'Notes', 'blackbean' ); ?></label>
+				<label class="<?php echo esc_attr( blackbean_shop_label_class() ); ?>" for="customer_notes"><?php esc_html_e( 'Notes', 'blackbean' ); ?></label>
 				<textarea class="<?php echo esc_attr( blackbean_textarea_class() ); ?>" name="customer_notes" id="customer_notes" rows="2"><?php echo esc_textarea( $customer['notes'] ); ?></textarea>
 			</div>
-			<button type="submit" class="<?php echo esc_attr( blackbean_button_class( 'primary' ) ); ?> w-full">
+			<button type="submit" class="<?php echo esc_attr( blackbean_shop_button_class( 'primary' ) ); ?> w-full">
 				<?php echo esc_html( blackbean_shop_paypal_enabled() ? __( 'Continue to PayPal', 'blackbean' ) : __( 'Place order', 'blackbean' ) ); ?>
 			</button>
 		</form>

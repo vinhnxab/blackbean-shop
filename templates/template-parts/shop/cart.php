@@ -18,7 +18,7 @@ $cart = blackbean_shop_cart_get();
 	<?php if ( empty( $cart['items'] ) ) : ?>
 		<div data-bb-cart-empty>
 			<p class="text-stone-600 dark:text-stone-400"><?php esc_html_e( 'Your cart is empty.', 'blackbean' ); ?></p>
-			<a class="<?php echo esc_attr( blackbean_button_class( 'primary' ) ); ?> mt-4 inline-flex" href="<?php echo esc_url( blackbean_shop_products_url() ); ?>"><?php esc_html_e( 'Go to shop', 'blackbean' ); ?></a>
+			<a class="<?php echo esc_attr( blackbean_shop_button_class( 'primary' ) ); ?> mt-4 inline-flex" href="<?php echo esc_url( blackbean_shop_products_url() ); ?>"><?php esc_html_e( 'Go to shop', 'blackbean' ); ?></a>
 		</div>
 	<?php else : ?>
 		<div class="bb-card overflow-hidden" data-bb-cart-panel>
@@ -46,7 +46,7 @@ $cart = blackbean_shop_cart_get();
 								<label class="sr-only" for="bb-qty-<?php echo esc_attr( (string) $product_id ); ?>"><?php esc_html_e( 'Quantity', 'blackbean' ); ?></label>
 								<input
 									type="number"
-									class="<?php echo esc_attr( blackbean_input_class() ); ?> bb-cart-qty__input"
+									class="<?php echo esc_attr( blackbean_shop_input_class() ); ?> bb-cart-qty__input"
 									id="bb-qty-<?php echo esc_attr( (string) $product_id ); ?>"
 									data-bb-qty-input
 									value="<?php echo esc_attr( (string) $item['qty'] ); ?>"
@@ -68,7 +68,7 @@ $cart = blackbean_shop_cart_get();
 					<?php esc_html_e( 'Subtotal', 'blackbean' ); ?>:
 					<span data-bb-cart-subtotal><?php echo esc_html( $cart['subtotal_label'] ); ?></span>
 				</p>
-				<a class="<?php echo esc_attr( blackbean_button_class( 'primary' ) ); ?>" href="<?php echo esc_url( blackbean_shop_checkout_url() ); ?>"><?php esc_html_e( 'Checkout', 'blackbean' ); ?></a>
+				<a class="<?php echo esc_attr( blackbean_shop_button_class( 'primary' ) ); ?>" href="<?php echo esc_url( blackbean_shop_checkout_url() ); ?>"><?php esc_html_e( 'Checkout', 'blackbean' ); ?></a>
 			</div>
 		</div>
 	<?php endif; ?>

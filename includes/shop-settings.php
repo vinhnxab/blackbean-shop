@@ -152,13 +152,13 @@ function blackbean_shop_render_settings_page() : void {
 
 	$s       = blackbean_shop_get_settings();
 	$webhook = rest_url( 'blackbean/v1/shop/paypal-webhook' );
-	$ui      = blackbean_admin_ui_classes();
+	$ui      = blackbean_shop_admin_ui_classes();
 	?>
 	<div class="<?php echo esc_attr( $ui['settings_wrap'] ); ?>">
-		<header class="bb-shop-page-header">
+		<header class="bb-admin-page-header">
 			<div>
-				<h1 class="bb-shop-page-title"><?php esc_html_e( 'Shop settings', 'blackbean' ); ?></h1>
-				<p class="bb-shop-page-desc"><?php esc_html_e( 'PayPal Checkout, webhooks, and payment configuration.', 'blackbean' ); ?></p>
+				<h1 class="bb-admin-page-title"><?php esc_html_e( 'Shop settings', 'blackbean' ); ?></h1>
+				<p class="bb-admin-page-desc"><?php esc_html_e( 'PayPal Checkout, webhooks, and payment configuration.', 'blackbean' ); ?></p>
 			</div>
 			<div class="<?php echo esc_attr( $ui['toolbar'] ); ?>">
 				<a class="<?php echo esc_attr( $ui['btn_sec'] ); ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=blackbean-shop-manager' ) ); ?>"><?php esc_html_e( 'Products', 'blackbean' ); ?></a>
@@ -168,7 +168,7 @@ function blackbean_shop_render_settings_page() : void {
 		</header>
 
 		<?php if ( $saved ) : ?>
-			<?php blackbean_admin_render_notice( esc_html__( 'Shop settings saved.', 'blackbean' ), 'ok' ); ?>
+			<?php blackbean_shop_admin_render_notice( esc_html__( 'Shop settings saved.', 'blackbean' ), 'ok' ); ?>
 		<?php endif; ?>
 
 		<form method="post">
@@ -225,39 +225,41 @@ function blackbean_shop_render_settings_page() : void {
 				</div>
 			</div>
 
-			<div class="<?php echo esc_attr( $ui['card'] ); ?> mt-6">
+			<div class="<?php echo esc_attr( $ui['card'] ); ?>">
 				<div class="<?php echo esc_attr( $ui['card_head'] ); ?>">
 					<div>
-						<p class="<?php echo esc_attr( $ui['card_title'] ); ?>"><?php esc_html_e( 'Sell Blackbean theme', 'blackbean' ); ?></p>
-						<p class="<?php echo esc_attr( $ui['card_sub'] ); ?>"><?php esc_html_e( 'Homepage sales landing and release ZIP product ID.', 'blackbean' ); ?></p>
+						<p class="<?php echo esc_attr( $ui['card_title'] ); ?>"><?php esc_html_e( 'Storefront', 'blackbean-shop' ); ?></p>
+						<p class="<?php echo esc_attr( $ui['card_sub'] ); ?>"><?php esc_html_e( 'Homepage product landing and featured product ID.', 'blackbean-shop' ); ?></p>
 					</div>
 				</div>
 
 				<div class="<?php echo esc_attr( $ui['fields'] ); ?>">
 					<p class="<?php echo esc_attr( $ui['check_row'] ); ?>">
 						<input class="<?php echo esc_attr( $ui['check'] ); ?>" type="checkbox" name="storefront_enabled" id="storefront_enabled" value="1" <?php checked( ! empty( $s['storefront_enabled'] ) ); ?> />
-						<label for="storefront_enabled"><?php esc_html_e( 'Show sales landing on homepage (when front page shows latest posts)', 'blackbean' ); ?></label>
+						<label for="storefront_enabled"><?php esc_html_e( 'Show product landing on homepage (when front page shows latest posts)', 'blackbean-shop' ); ?></label>
 					</p>
 
 					<div class="<?php echo esc_attr( $ui['field'] ); ?>">
-						<label class="<?php echo esc_attr( $ui['form_label'] ); ?>" for="theme_product_id"><?php esc_html_e( 'Theme product ID', 'blackbean' ); ?></label>
-						<input type="number" min="0" step="1" class="<?php echo esc_attr( $ui['input'] . ' bb-shop-input--narrow' ); ?>" name="theme_product_id" id="theme_product_id" value="<?php echo esc_attr( (string) (int) ( $s['theme_product_id'] ?? 0 ) ); ?>" />
+						<label class="<?php echo esc_attr( $ui['form_label'] ); ?>" for="theme_product_id"><?php esc_html_e( 'Featured product ID', 'blackbean-shop' ); ?></label>
+						<input type="number" min="0" step="1" class="<?php echo esc_attr( $ui['input'] . ' bb-admin-input--narrow' ); ?>" name="theme_product_id" id="theme_product_id" value="<?php echo esc_attr( (string) (int) ( $s['theme_product_id'] ?? 0 ) ); ?>" />
 						<p class="<?php echo esc_attr( $ui['hint'] ); ?>">
-							<?php esc_html_e( 'Shop product ID for Blackbean Theme. Used on the homepage and in npm run release -- --product-id=…', 'blackbean' ); ?>
+							<?php esc_html_e( 'Shop product shown on the homepage landing. Also used by npm run release -- --product-id=…', 'blackbean-shop' ); ?>
 						</p>
 					</div>
 
 					<p class="<?php echo esc_attr( $ui['hint'] ); ?>">
-						<?php esc_html_e( 'Release ZIP:', 'blackbean' ); ?>
+						<?php esc_html_e( 'Release ZIP:', 'blackbean-shop' ); ?>
 						<code>npm run build && npm run release -- --shop-url=<?php echo esc_html( untrailingslashit( home_url() ) ); ?> --product-id=ID</code>
 					</p>
+					<?php if ( 'blackbean' === get_template() ) : ?>
 					<p class="<?php echo esc_attr( $ui['hint'] ); ?>">
-						<a href="<?php echo esc_url( admin_url( 'themes.php?page=blackbean-theme-license' ) ); ?>"><?php esc_html_e( 'Theme license (server)', 'blackbean' ); ?></a>
+						<a href="<?php echo esc_url( admin_url( 'themes.php?page=blackbean-theme-license' ) ); ?>"><?php esc_html_e( 'Theme license (server)', 'blackbean-shop' ); ?></a>
 					</p>
+					<?php endif; ?>
 				</div>
 			</div>
 
-			<div class="bb-shop-settings-actions mt-4">
+			<div class="bb-admin-settings-actions">
 				<button type="submit" class="<?php echo esc_attr( $ui['btn_pri'] ); ?>"><?php esc_html_e( 'Save settings', 'blackbean' ); ?></button>
 			</div>
 		</form>

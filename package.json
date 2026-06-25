@@ -7,9 +7,10 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "release": "node ../../../scripts/release-one-plugin.mjs blackbean-shop",
-    "watch": "tailwindcss -c ./tailwind.config.js -i ./src/shop-admin.css -o ./assets/css/shop-admin.css --watch"
+    "watch": "tailwindcss -c ./tailwind.admin.config.js -i ./src/shop-admin.css -o ./assets/css/shop-admin.css --watch"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.4",
     "tailwindcss": "^3.4.17"

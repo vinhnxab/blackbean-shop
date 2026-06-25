@@ -1,0 +1,213 @@
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Black Bean Shop — public templates (storefront, products, cart, header cart).
+ * Loaded by the plugin; does not require theme app.css.
+ */
+@layer components {
+	.bb-shop-grid-accent {
+		@apply relative overflow-hidden;
+	}
+
+	.bb-shop-grid-accent::before {
+		content: '';
+		@apply pointer-events-none absolute inset-0 -z-10 opacity-60;
+		background-image:
+			linear-gradient(to right, rgb(124 58 237 / 0.08) 1px, transparent 1px),
+			linear-gradient(to bottom, rgb(120 113 108 / 0.1) 1px, transparent 1px);
+		background-size: 32px 32px;
+		mask-image: radial-gradient(ellipse 85% 70% at 50% 0%, #000 20%, transparent 75%);
+	}
+
+	.dark .bb-shop-grid-accent::before {
+		background-image:
+			linear-gradient(to right, rgb(167 139 250 / 0.12) 1px, transparent 1px),
+			linear-gradient(to bottom, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+		opacity: 0.45;
+	}
+
+	.bb-shop-btn {
+		@apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition duration-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 disabled:cursor-not-allowed disabled:opacity-60;
+	}
+
+	.bb-shop-btn-primary {
+		@apply bb-shop-btn bg-gradient-to-r from-brand-600 to-brand-500 text-white shadow-glow-sm hover:from-brand-500 hover:to-brand-400 active:scale-[0.98];
+	}
+
+	.bb-shop-btn-secondary {
+		@apply bb-shop-btn border border-stone-200/80 bg-white/60 text-stone-800 hover:bg-white hover:shadow-sm dark:border-stone-600 dark:bg-stone-800/60 dark:text-stone-100 dark:hover:bg-stone-800;
+	}
+
+	.bb-shop-input {
+		@apply block w-full rounded-xl border border-stone-200/80 bg-white/80 px-4 py-2.5 text-sm text-stone-900 shadow-sm backdrop-blur transition placeholder:text-stone-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-stone-600 dark:bg-stone-900/80 dark:text-stone-100 dark:placeholder:text-stone-500 dark:focus:border-brand-400 dark:focus:ring-brand-400/25;
+	}
+
+	.bb-shop-label {
+		@apply mb-1.5 block text-sm font-medium text-stone-700 dark:text-stone-300;
+	}
+
+	.bb-shop-card {
+		@apply rounded-2xl border border-white/60 bg-white/75 shadow-card backdrop-blur-xl transition duration-300 dark:border-stone-700/50 dark:bg-stone-900/70;
+	}
+
+	.bb-reveal {
+		@apply translate-y-0 opacity-100;
+	}
+
+	.bb-storefront {
+		@apply flex flex-col gap-16 py-12 sm:gap-20 sm:py-16;
+	}
+
+	.bb-storefront-hero {
+		@apply bb-shop-grid-accent grid gap-10 rounded-3xl border border-stone-200 bg-white/80 p-8 shadow-sm backdrop-blur dark:border-stone-700 dark:bg-stone-900/80 sm:p-12 lg:grid-cols-2 lg:items-center lg:gap-14 lg:p-14;
+	}
+
+	.bb-storefront-copy {
+		@apply flex min-w-0 flex-col gap-5;
+	}
+
+	.bb-storefront-copy__lead {
+		@apply max-w-xl text-lg leading-relaxed text-stone-600 dark:text-stone-400;
+	}
+
+	.bb-storefront-copy__price {
+		@apply flex flex-col gap-2 pt-1;
+	}
+
+	.bb-storefront-copy__cta {
+		@apply flex flex-col gap-3;
+	}
+
+	.bb-storefront-media {
+		@apply min-w-0;
+	}
+
+	.bb-storefront-section {
+		@apply flex flex-col gap-6;
+	}
+
+	.bb-storefront-features {
+		@apply grid gap-4 sm:grid-cols-2 lg:gap-5;
+	}
+
+	.bb-storefront-panel {
+		@apply flex flex-col gap-6 rounded-2xl border border-stone-200 bg-stone-50 p-8 sm:p-10 dark:border-stone-700 dark:bg-stone-900/50;
+	}
+
+	.bb-storefront-steps {
+		@apply grid gap-8 sm:grid-cols-3 sm:gap-6 lg:gap-10;
+	}
+
+	.bb-storefront-panel__cta {
+		@apply flex flex-wrap items-center justify-center gap-3 pt-2 sm:gap-4;
+	}
+
+	.bb-header-cart {
+		@apply inline-flex shrink-0 items-center self-center leading-none;
+	}
+
+	.bb-header-cart__drop {
+		@apply inline-flex items-center justify-center leading-none;
+	}
+
+	.bb-header-cart__trigger {
+		@apply relative;
+	}
+
+	.bb-header-cart__icon {
+		@apply block shrink-0;
+	}
+
+	.bb-header-cart[data-variant='dev'] .bb-header-cart__trigger {
+		@apply shrink-0 leading-none text-zinc-700 dark:text-zinc-300;
+	}
+
+	.bb-header-cart__badge {
+		@apply absolute -right-0.5 -top-0.5 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-brand-600 px-1 text-[10px] font-bold leading-none text-white shadow-sm;
+	}
+
+	.bb-header-cart__badge[hidden] {
+		display: none !important;
+	}
+
+	.bb-header-cart__panel {
+		@apply pointer-events-none invisible fixed z-[60] w-72 opacity-0 transition duration-150 ease-out;
+	}
+
+	.bb-header-cart__panel.is-visible {
+		@apply pointer-events-auto visible opacity-100;
+	}
+
+	.bb-header-cart__panel-inner {
+		@apply overflow-hidden rounded-xl border border-stone-200/90 bg-white/95 shadow-card backdrop-blur-xl dark:border-stone-700 dark:bg-stone-900/95;
+	}
+
+	.bb-header-cart[data-variant='dev'] .bb-header-cart__panel-inner {
+		@apply rounded-md border-zinc-200 bg-zinc-50 font-mono text-xs shadow-lg dark:border-zinc-700 dark:bg-zinc-950;
+	}
+
+	.bb-header-cart__empty {
+		@apply px-4 py-5 text-center text-sm text-stone-500 dark:text-stone-400;
+	}
+
+	.bb-header-cart__list {
+		@apply max-h-52 divide-y divide-stone-100 overflow-y-auto dark:divide-stone-800;
+	}
+
+	.bb-header-cart__line {
+		@apply flex flex-col gap-0.5 px-4 py-3;
+	}
+
+	.bb-header-cart__line-title {
+		@apply truncate text-sm font-medium text-stone-900 hover:text-brand-700 dark:text-stone-100 dark:hover:text-brand-300;
+	}
+
+	.bb-header-cart__line-meta {
+		@apply text-xs text-stone-500 dark:text-stone-400;
+	}
+
+	.bb-header-cart__more {
+		@apply border-t border-stone-100 px-4 py-2 text-center text-xs text-stone-500 dark:border-stone-800 dark:text-stone-400;
+	}
+
+	.bb-header-cart__footer {
+		@apply border-t border-stone-200 bg-stone-50/90 px-4 py-3 dark:border-stone-700 dark:bg-stone-900/80;
+	}
+
+	.bb-header-cart__subtotal {
+		@apply text-sm font-semibold text-stone-900 dark:text-stone-100;
+	}
+
+	.bb-header-cart__actions {
+		@apply mt-2 flex flex-wrap gap-2;
+	}
+
+	.bb-header-cart__link {
+		@apply inline-flex flex-1 items-center justify-center rounded-lg border border-stone-200 px-2 py-1.5 text-center text-xs font-semibold text-stone-700 transition hover:border-brand-300 hover:text-brand-700 dark:border-stone-600 dark:text-stone-200 dark:hover:border-brand-500 dark:hover:text-brand-300;
+	}
+
+	.bb-header-cart__link--primary {
+		@apply border-brand-600 bg-brand-600 text-white hover:border-brand-700 hover:bg-brand-700 hover:text-white dark:border-brand-500 dark:bg-brand-600;
+	}
+
+	.bb-cart-qty {
+		@apply inline-flex items-stretch overflow-hidden rounded-lg border border-stone-200 dark:border-stone-600;
+	}
+
+	.bb-cart-qty__btn {
+		@apply flex w-9 shrink-0 items-center justify-center bg-stone-50 text-lg font-medium text-stone-700 transition hover:bg-stone-100 disabled:opacity-50 dark:bg-stone-800 dark:text-stone-200 dark:hover:bg-stone-700;
+	}
+
+	.bb-cart-qty__input {
+		@apply w-14 min-w-0 rounded-none border-0 border-x border-stone-200 px-1 py-2 text-center text-sm shadow-none dark:border-stone-600;
+	}
+
+	.bb-cart-line--busy {
+		@apply pointer-events-none opacity-60;
+	}
+
+	.bb-shop-cart-alert {
+		@apply mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-200;
+	}
+}

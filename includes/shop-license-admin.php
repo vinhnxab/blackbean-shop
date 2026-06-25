@@ -151,10 +151,10 @@ function blackbean_shop_render_license_manager_page() : void {
 	);
 	?>
 	<div class="<?php echo esc_attr( $ui['manager_wrap'] ); ?>">
-		<header class="bb-shop-page-header">
+		<header class="bb-admin-page-header">
 			<div>
-				<h1 class="bb-shop-page-title"><?php esc_html_e( 'License manager', 'blackbean' ); ?></h1>
-				<p class="bb-shop-page-desc"><?php esc_html_e( 'View license keys, site activations, revoke or restore access.', 'blackbean' ); ?></p>
+				<h1 class="bb-admin-page-title"><?php esc_html_e( 'License manager', 'blackbean' ); ?></h1>
+				<p class="bb-admin-page-desc"><?php esc_html_e( 'View license keys, site activations, revoke or restore access.', 'blackbean' ); ?></p>
 			</div>
 			<div class="<?php echo esc_attr( $ui['toolbar'] ); ?>">
 				<a class="<?php echo esc_attr( $ui['btn_sec'] ); ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=blackbean-shop-manager' ) ); ?>"><?php esc_html_e( 'Products', 'blackbean' ); ?></a>

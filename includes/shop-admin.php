@@ -10,13 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @return array<string, string>
- */
-function blackbean_shop_admin_ui_classes() : array {
-	return blackbean_admin_ui_classes();
-}
-
-/**
  * @param bool $in_stock Whether product is in stock.
  */
 function blackbean_shop_admin_stock_badge_class( bool $in_stock ) : string {
@@ -112,10 +105,10 @@ function blackbean_shop_render_manager_page() : void {
 	);
 	?>
 	<div class="<?php echo esc_attr( $ui['manager_wrap'] ); ?>">
-		<header class="bb-shop-page-header">
+		<header class="bb-admin-page-header">
 			<div>
-				<h1 class="bb-shop-page-title"><?php esc_html_e( 'Product manager', 'blackbean' ); ?></h1>
-				<p class="bb-shop-page-desc"><?php esc_html_e( 'Manage catalog, pricing, stock, and digital delivery.', 'blackbean' ); ?></p>
+				<h1 class="bb-admin-page-title"><?php esc_html_e( 'Product manager', 'blackbean' ); ?></h1>
+				<p class="bb-admin-page-desc"><?php esc_html_e( 'Manage catalog, pricing, stock, and digital delivery.', 'blackbean' ); ?></p>
 			</div>
 			<div class="<?php echo esc_attr( $ui['toolbar'] ); ?>">
 				<a class="<?php echo esc_attr( $ui['btn_pri'] ); ?>" href="<?php echo esc_url( blackbean_shop_product_edit_url() ); ?>">
@@ -295,10 +288,10 @@ function blackbean_shop_render_order_manager_page() : void {
 	);
 	?>
 	<div class="<?php echo esc_attr( $ui['manager_wrap'] ); ?>">
-		<header class="bb-shop-page-header">
+		<header class="bb-admin-page-header">
 			<div>
-				<h1 class="bb-shop-page-title"><?php esc_html_e( 'Order manager', 'blackbean' ); ?></h1>
-				<p class="bb-shop-page-desc"><?php esc_html_e( 'Review customers, payments, fulfillment, and order status.', 'blackbean' ); ?></p>
+				<h1 class="bb-admin-page-title"><?php esc_html_e( 'Order manager', 'blackbean' ); ?></h1>
+				<p class="bb-admin-page-desc"><?php esc_html_e( 'Review customers, payments, fulfillment, and order status.', 'blackbean' ); ?></p>
 			</div>
 			<div class="<?php echo esc_attr( $ui['toolbar'] ); ?>">
 				<a class="<?php echo esc_attr( $ui['btn_sec'] ); ?>" href="<?php echo esc_url( $product_url ); ?>"><?php esc_html_e( 'Products', 'blackbean' ); ?></a>
@@ -424,9 +417,9 @@ function blackbean_shop_render_order_detail_page( int $order_id ) : void {
 	$ui = blackbean_shop_admin_ui_classes();
 	?>
 	<div class="<?php echo esc_attr( $ui['manager_wrap'] ); ?>">
-		<header class="bb-shop-page-header">
+		<header class="bb-admin-page-header">
 			<div>
-				<h1 class="bb-shop-page-title">
+				<h1 class="bb-admin-page-title">
 					<?php
 					printf(
 						/* translators: %d: order ID */
@@ -442,7 +435,7 @@ function blackbean_shop_render_order_detail_page( int $order_id ) : void {
 		</header>
 
 		<?php if ( ! empty( $_GET['saved'] ) ) : ?>
-			<?php blackbean_admin_render_notice( esc_html__( 'Order saved.', 'blackbean' ), 'ok' ); ?>
+			<?php blackbean_shop_admin_render_notice( esc_html__( 'Order saved.', 'blackbean' ), 'ok' ); ?>
 		<?php endif; ?>
 
 		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
